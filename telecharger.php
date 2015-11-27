@@ -1,5 +1,5 @@
 <?php
-
+	if(isset($_GET['url']) && isset($_GET['titre'])){
     	$url=$_GET['url'];
     	$titre=$_GET['titre'];
 
@@ -21,5 +21,5 @@
 		header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
 		header('Expires: 0');
 		readfile($url);
-
+	}
 ?>

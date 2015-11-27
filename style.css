@@ -1,0 +1,220 @@
+@font-face {
+    font-family: 'mohaveregular';
+    src: url('fonts/mohave-webfont.eot');
+    src: url('fonts/mohave-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/mohave-webfont.woff2') format('woff2'),
+         url('fonts/mohave-webfont.woff') format('woff'),
+         url('fonts/mohave-webfont.ttf') format('truetype'),
+         url('fonts/mohave-webfont.svg#mohaveregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'sertigregular';
+    src: url('fonts/sertig-webfont.eot');
+    src: url('fonts/sertig-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/sertig-webfont.woff2') format('woff2'),
+         url('fonts/sertig-webfont.woff') format('woff'),
+         url('fonts/sertig-webfont.ttf') format('truetype'),
+         url('fonts/sertig-webfont.svg#sertigregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+* {
+	margin:0px;
+	padding:0px;
+}
+
+/*Style du body de l'accueil*/
+.acc{
+	font-family:sertigregular;
+	float: center;
+	background-color: #fbfcfc;
+	font-size: 25px;
+	text-align: center;
+	color: #f4a62a;
+}
+
+/* Style des images de l'accueil */
+.imgacc{
+	float:center;
+	display:inline-block;
+	width:75px;
+	height:75px;
+	margin: 75px;
+	border: 2px solid #f4a62a;
+	border-radius:10px;
+}
+
+/* Style du logo du header */
+.imgheader{
+	padding: 0px;
+	float:center;
+	margin: 0px;
+	width:300px;
+	height:100px;
+}
+
+/* Style des boutons de l'accueil */
+.btnacc{
+	color: black;
+	padding: 20px;
+	margin: 30px;
+	border: 1px solid #f4a62a;
+	border-radius:10px;
+}
+
+.btnacc:hover{
+	background-color: #f4a62a;
+}
+
+/*liens*/
+a:link{
+	text-decoration: none;
+}
+/*liens visités*/
+a:visited{
+	color: black;
+	text-decoration: none;
+}
+/*liens survolés */
+a:hover{
+	color:#f4a62a;
+}
+
+
+/*Style du header de l'accueil */
+.headeracc{
+	text-align: center;
+	border: 1px solid #f4a62a;
+	border-radius: 10px;
+	margin: 5px;
+	background-color: #f4a62a;
+}
+
+/* Style du aside */
+aside{
+	display: inline-block;
+	float: left;
+	margin-top: 0px;
+	background-color: white;
+	height: 90%;
+	width:22%;
+	border-right: 1px solid #f4a62a;
+	overflow: scroll;
+}
+
+
+.divaside{
+	display: inline-block;
+	float: left;
+	padding: 5%;
+	text-align: center;
+	margin-left: 1px solid #f4a62a;
+}
+
+.bandeau{
+	display: inline-block;
+	width: 100%;
+	text-align: center;
+	border-top: 1px solid #f4a62a;
+	border-bottom: 1px solid #f4a62a;
+	font-family:sertigregular;
+	font-size: 20px;
+	text-align: center;
+	color: #f4a62a;
+}
+
+/* Style de la photo de profil du aside */
+.img-profil{
+	height: 75px;
+	border-radius: 50%;
+	margin:10%;
+}
+
+/* Style des formulaires */
+/*
+form{
+	text-align: center;
+	font-family: arial;
+	font-size: 25px;
+	border-radius:4px;
+  	border:1px solid #f4a62a;
+  	border-radius:4px;
+  	padding: 20px;
+  	margin: 20px;
+}
+*/
+
+/* Style du header */
+header{
+	margin: 0;
+	width: 100%;
+	height: 10%;
+	display: inline-block;
+	float: left;
+	background-color: white;
+	border-bottom: 1px solid #f4a62a;
+}
+
+/* Image du header */
+.imgheader{
+	float: center;
+	height: 50px;
+	width: 150px;
+	margin: 1%;
+}
+
+
+/*Bouton du header */
+.btnheader{
+	float: left;
+	margin: 1%;
+	padding: 1%;
+}
+
+
+.btnheader:hover{
+	background-color: #f4a62a;
+}
+
+/* Style du body */
+body{
+	background-color: #F2F3F3;
+	padding: 0;
+	margin: 0;
+} 
+
+.divchaine{
+	font-family:sertigregular;
+	font-size: 20px;
+	margin: 0;
+	padding: 0;
+	height: 10%;
+	background-color: #cbd0d3;
+	width: 100%;
+	text-align: center;
+}
+
+/* Style du profil de l'utilisateur */
+.profil{
+	text-align: center;
+}
+
+.profilimg{
+	border-radius: 50%;
+	height: 170px;
+	width: 170px;
+	margin: 10%;
+}
+
+.formAjoutFlux{
+	float: right;
+	margin-right:60%;
+}
+
+

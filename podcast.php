@@ -1,91 +1,100 @@
-<?php
+<?php 
+include("header.php");
+include("aside.php"); 
+include("footer.php");
+include 'connexionBDD.php';
+include 'podcastModel.php';
 
-//Classe Podcast
-class Podcast {
-	private $titre;
-	private $date;
-	private $description;
-	private $auteur;
-	private $categorie;
-	private $url;
+$titrePod="";
+$auteurPod="";
+$datePod="";
+$descPod="";
+$urlPod="";
+if(isset($_POST['url'])){
 
-	//Constructeur
-	public function __construct($titre,$date,$desc,$aut,$categ,$url){
-		$this->titre=$titre;
-		$this->date=$date;
-		$this->description=$desc;
-		$this->auteur=$aut;
-		$this->categorie=$categ;
-		$this->url=$url;
-	}
-	//Methode permettant d'afficher les informations d'un podcast
-	function afficher(){
-		echo("
-			Affichage Podcast:
-			<br />
-			titre: $this->titre
-			<br />
-			date: $this->date
-			<br />
-			description: $this->description 
-			<br />
-			url: $this->url
-			<br />
-			<a href=\"dl.php?url=$this->url&name=$this->titre\">download</a>
-			");
-	}
+    $url=htmlentities($_POST['url']);
+    $podcast= new Podcast("","","","","","");
 
-	public function recuperePodcast($url){
-		if(!empty($url)){
-			//On recupère le flux RSS
-			$flux = new DomDocument();
-			$flux->load($url);
-			$flux->preservedWhiteSpace=false;
-			$pc = $flux->getElementsByTagName('item')->item(0);
-			$titre = $pc->getElementsByTagName('title')->item(0)->nodeValue;
-			$date = $pc->getElementsByTagName('pubDate')->item(0)->nodeValue;
-			$desc= $pc->getElementsByTagName('description')->item(0)->nodeValue;
-			$auteur=$pc->getElementsByTagName('author')->item(0)->nodeValue;
-			$categ=$pc->getElementsByTagName('category')->item(0)->nodeValue;
-			$url=$pc->getElementsByTagName('enclosure')->item(0)->getAttribute('url');
-
-			//Ajout base
-			$sql= "INSERT INTO podcast(titre,auteur,date,description,url,id_genre,comments) VALUES('$titre','$auteur', '$date', '$desc', '$url', '0',' rien ')";
-			@mysql_query($sql) or die('Erreur requete SQL'."  ".mysql_error());
-			}
-
-		}
-
-	public function getById($id){
-		if(!empty($id)){
-
-			$sql= "SELECT * FROM podcast WHERE id_pod='$id'";
-			$result=@mysql_query($sql) or die('Erreur requete SQL'."  ".mysql_error());
-			$pc;
-			while($ligne= mysql_fetch_row($result)){
-				$pc=new Podcast($ligne[1],$ligne[3],$ligne[4],$ligne[2],$ligne[6],$ligne[5]);
-			}
-		}
-		return $pc;
-	}
-	public function getTitre(){
-		return $this->titre;
-	}
-	public function getDate(){
-		return $this->date;
-	}
-	public function getDescription(){
-		return $this->description;
-	}
-	public function getAuteur(){
-		return $this->auteur;
-	}
-	public function getCategorie(){
-		return $this->categorie;
-	}
-	public function getUrl(){
-		return $this->url;
-	}
-
+    $podcast->recuperePodcast($url);
 }
+
+if(isset($_GET['podcast'])){
+	$idPodSel=$_GET['podcast'];
+	$sql2="SELECT * FROM podcast WHERE id_pod='$idPodSel'";
+	$res2 = @mysql_query($sql2) or die('Erreur requete SQL'."  ".mysql_error());
+	if($res2){
+		while($data=mysql_fetch_assoc($res2)){
+			$titrePod=$data['titre'];
+			$auteurPod=$data['auteur'];
+			$datePod=$data['date'];
+			$descPod=$data['description'];
+			$urlPod=$data['url'];
+		}
+	}
+}
+
+
 ?>
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> PodcastToi ! </title>
+		<meta http-equiv="Content-type" content="text/html; charset=UTF-8"/> 
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<script type="text/javascript" src="js/scriptPodcast.js"></script>
+	</head>
+
+	<body> 
+			<div class="divchaine">
+				<p> Nom de la chaine <p>
+				<input type="button" name="subscribe" value="S'abonner" class="btn btn-warning" >
+			</div>
+
+			<section >
+				<br />
+				<div name='info-podcast'>
+					<label class="col-md-4">Titre: <?php echo $titrePod; ?></label><br /><br />
+					<label class="col-md-4">Date: <?php echo $datePod; ?></label><br /><br />
+					<label class="col-md-4">Auteur: <?php echo $auteurPod; ?></label><br /><br />
+					<label class="col-md-4">Description: <?php echo $descPod; ?></label><br /><br />
+				</div>
+				<div name="lecteur">
+					<audio controls>
+					    <source src=<?php echo $urlPod; ?>>
+					</audio>
+				</div>
+
+				<div id="option-podcast">
+					<button type="button" id="addFormAjoutFlux"class="btn btn-default" onclick="affiFormAddFlux();"><span id="addFormAjoutFluxImage" class="glyphicon glyphicon-plus"></span></button>
+					<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span></button>
+					<a href="telecharger.php?url=<?php echo $urlPod; ?>&titre=<?php echo $titrePod; ?>"><button type="button" class="btn btn-default" ><span class="glyphicon glyphicon-cloud-download"></span></button></a>
+				</div>
+
+				<table class="table table-hover">
+					<tr>
+					    <th>Titre</th> 
+					    <th>Date</th>
+					    <th>Séléction</th>
+					</tr>
+					<?php
+					$sql="SELECT podcast.id_pod, titre, date FROM podcast, abonnement WHERE id_util=1 AND podcast.id_pod = abonnement.id_pod  ";
+					$resultat = @mysql_query($sql) or die('Erreur requete SQL'."  ".mysql_error());
+					
+					if($resultat){
+						while($donnees=mysql_fetch_assoc($resultat)){
+							echo("<tr>");
+							echo("<td>".$donnees['titre']."</td>");
+							echo("<td>".$donnees['date']."</td>");
+							echo("<td><a href='podcast.php?podcast=".$donnees['id_pod']."'><button class='btn btn-primary'>Séléctionner</button></a></td>");
+							echo("</tr>");
+						}
+					}
+				
+
+					?>
+				</table>
+			</section>
+	</body>
+</html>
