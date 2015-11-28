@@ -1,8 +1,8 @@
 
-function affiFormAddFlux(formAffi){
+function affiFormAddFlux(){
 	var form = document.createElement("form"); 
 	form.setAttribute("id", "formAjoutFlux");
-	form.setAttribute("class", "form-horizontal formAjoutFlux");
+	form.setAttribute("class", "form-inline formAjoutFlux");
 	form.setAttribute("method", "POST");
 	form.setAttribute("action","podcast.php");
 			
@@ -12,7 +12,7 @@ function affiFormAddFlux(formAffi){
 			
 	label.setAttribute("class","col-sm-2 control-label");
 
-	label.innerHTML="Email: ";
+	label.innerHTML="Url: ";
 			
 	var input= document.createElement("input");
 	input.setAttribute("class","form-control");

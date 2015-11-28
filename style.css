@@ -102,8 +102,8 @@ aside{
 	float: left;
 	margin-top: 0px;
 	background-color: white;
-	height: 90%;
-	width:22%;
+	max-height: 100%;
+	max-width:22%;
 	border-right: 1px solid #f4a62a;
 	overflow: scroll;
 }
@@ -189,6 +189,11 @@ body{
 	margin: 0;
 } 
 
+section{
+	margin-left: 22%;
+	padding-left: 2%;
+}
+
 .divchaine{
 	font-family:sertigregular;
 	font-size: 20px;
@@ -213,8 +218,9 @@ body{
 }
 
 .formAjoutFlux{
-	float: right;
-	margin-right:60%;
+	float:right;
+	padding-right: 68%
+
 }
 
 

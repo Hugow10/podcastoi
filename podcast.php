@@ -47,54 +47,102 @@ if(isset($_GET['podcast'])){
 	</head>
 
 	<body> 
-			<div class="divchaine">
+			<section>
+			<!-- util ? -->
+			<!-- <div class="divchaine">
 				<p> Nom de la chaine <p>
 				<input type="button" name="subscribe" value="S'abonner" class="btn btn-warning" >
-			</div>
+			</div> -->
 
-			<section >
+			
 				<br />
 				<div name='info-podcast'>
-					<label class="col-md-4">Titre: <?php echo $titrePod; ?></label><br /><br />
-					<label class="col-md-4">Date: <?php echo $datePod; ?></label><br /><br />
-					<label class="col-md-4">Auteur: <?php echo $auteurPod; ?></label><br /><br />
-					<label class="col-md-4">Description: <?php echo $descPod; ?></label><br /><br />
-				</div>
+					<label class="col-md-1">Titre:</label><p><?php echo $titrePod; ?></p>
+					<label class="col-md-1">Date:</label><p><?php echo $datePod; ?></p>
+					<label class="col-md-1">Auteur:</label><p><?php echo $auteurPod; ?></p>
+					<label class="col-md-1">Description:</label><p><?php echo $descPod; ?></p>
+				</div><br />
 				<div name="lecteur">
 					<audio controls>
 					    <source src=<?php echo $urlPod; ?>>
 					</audio>
-				</div>
+				</div><br />
 
 				<div id="option-podcast">
 					<button type="button" id="addFormAjoutFlux"class="btn btn-default" onclick="affiFormAddFlux();"><span id="addFormAjoutFluxImage" class="glyphicon glyphicon-plus"></span></button>
 					<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span></button>
 					<a href="telecharger.php?url=<?php echo $urlPod; ?>&titre=<?php echo $titrePod; ?>"><button type="button" class="btn btn-default" ><span class="glyphicon glyphicon-cloud-download"></span></button></a>
-				</div>
+				</div><br />
 
-				<table class="table table-hover">
-					<tr>
-					    <th>Titre</th> 
-					    <th>Date</th>
-					    <th>Séléction</th>
-					</tr>
+				<div class="container">
+
 					<?php
-					$sql="SELECT podcast.id_pod, titre, date FROM podcast, abonnement WHERE id_util=1 AND podcast.id_pod = abonnement.id_pod  ";
-					$resultat = @mysql_query($sql) or die('Erreur requete SQL'."  ".mysql_error());
-					
-					if($resultat){
-						while($donnees=mysql_fetch_assoc($resultat)){
-							echo("<tr>");
-							echo("<td>".$donnees['titre']."</td>");
-							echo("<td>".$donnees['date']."</td>");
-							echo("<td><a href='podcast.php?podcast=".$donnees['id_pod']."'><button class='btn btn-primary'>Séléctionner</button></a></td>");
-							echo("</tr>");
-						}
-					}
-				
 
+					//nombre de podcast que l'on affiche sur une page
+					$podcastParPage=20;
+					//nombre total de podcasts à afficher
+					$nbPodcastTotal = mysql_query("SELECT COUNT(*) AS total FROM podcast, abonnement WHERE id_util=1 AND podcast.id_pod = abonnement.id_pod"); 
+					$podcastTotal=mysql_fetch_assoc($nbPodcastTotal);
+					//on recupère le total des éléments à afficher
+					$total=$podcastTotal['total'];
+					//On definie le nombre de pages pour la pagination
+					$nombreDePages=ceil($total/$podcastParPage);
+					//si la page (pagination) est définie
+					if(isset($_GET['page'])){
+					        //on définie la page actuelle
+					        $pageActuelle=intval($_GET['page']);
+					        //si la page actuelle est supérieure au nombre de page
+					        if($pageActuelle>$nombreDePages){
+					                //page actuelle = dernière page
+					                $pageActuelle=$nombreDePages;
+					        }
+					}
+					else{
+					        //page actuelle = première page
+					        $pageActuelle=1;
+					}
+					//On calcul la première entrée à lire
+					$premiereEntree=($pageActuelle-1)*$podcastParPage;
+					// La requête sql pour récupérer les messages de la page actuelle
+					$sql="SELECT podcast.id_pod, titre, date FROM podcast, abonnement WHERE id_util=1 AND podcast.id_pod = abonnement.id_pod LIMIT ".$premiereEntree.', '.$podcastParPage.'';
+					$resultat = @mysql_query($sql) or die('Erreur requete SQL'."  ".mysql_error());
 					?>
-				</table>
+
+					<table class="table table-hover">
+						<tr>
+						    <th>Titre</th> 
+						    <th>Date</th>
+						    <th>Séléction</th>
+						</tr>
+						<?php
+						
+						if($resultat){
+							while($donnees=mysql_fetch_assoc($resultat)){
+								echo("<tr>");
+								echo("<td>".$donnees['titre']."</td>");
+								echo("<td>".$donnees['date']."</td>");
+								echo("<td><a href='podcast.php?page=".$pageActuelle."&podcast=".$donnees['id_pod']."'><button class='btn btn-primary'>Séléctionner</button></a></td>");
+								echo("</tr>");
+							}
+						}
+					
+
+						?>
+					</table>
+					<!-- pagination -->
+					<ul class="pagination">
+						<li><a href="podcast.php?page=<?php $p=$pageActuelle-1; echo $p; ?>" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+						<?php 
+				            for($i=1; $i<=$nombreDePages; $i++){
+				        ?>
+				        <li><a href="podcast.php?page=<?php echo $i ;?>"><?php echo $i ;?></a></li>
+				        <?php
+				            }
+
+				          ?>
+						<li><a href="podcast.php?page=<?php $p=$pageActuelle+1; echo $p; ?>" aria-label="Previous"><span aria-hidden="true">&raquo;</span></a></li>
+					</ul>
+				</div>
 			</section>
 	</body>
 </html>
