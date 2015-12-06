@@ -1,9 +1,9 @@
 <?php 
-include("header.php");
-include("aside.php"); 
-include("footer.php");
-include 'connexionBDD.php';
-include 'podcastModel.php';
+include ("vues/header.php");
+include ("vues/aside.php"); 
+include ("vues/footer.php");
+include ("connexionBDD.php");
+include ("modeles/podcastModel.php");
 
 $titrePod="";
 $auteurPod="";
@@ -41,8 +41,8 @@ if(isset($_GET['podcast'])){
 	<head>
 		<title> PodcastToi ! </title>
 		<meta http-equiv="Content-type" content="text/html; charset=UTF-8"/> 
-		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css"/>
-		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="stylesheet" type="text/css" href="styles/bootstrap/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="styles/style.css">
 		<script type="text/javascript" src="js/scriptPodcast.js"></script>
 	</head>
 

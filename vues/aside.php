@@ -4,8 +4,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css"/>
-		<link rel="stylesheet" type="text/css" href="style.css">	
+		<link rel="stylesheet" type="text/css" href="../styles/bootstrap/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../styles/style.css">	
 	</head>
 	<body>
 		<aside class="aside-responsive">
