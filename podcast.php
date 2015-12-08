@@ -10,12 +10,14 @@ $auteurPod="";
 $datePod="";
 $descPod="";
 $urlPod="";
-if(isset($_POST['url'])){
+if( (isset($_POST['url'])) && (isset($_POST['nomAbonnement'])) ){
 
     $url=htmlentities($_POST['url']);
+    $nomAbonnement=htmlentities($_POST['nomAbonnement']);
     $podcast= new Podcast("","","","","","");
 
-    $podcast->recuperePodcast($url);
+    $podcast->recuperePodcast($url,$nomAbonnement);
+    
 }
 
 if(isset($_GET['podcast'])){

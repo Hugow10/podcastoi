@@ -8,16 +8,30 @@ function affiFormAddFlux(){
 			
 	var div = document.createElement("div");
 	div.setAttribute("class","form-group");
-	var label = document.createElement("label");
-			
-	label.setAttribute("class","col-sm-2 control-label");
+	
+	/*
+	On affiche plus les labels de ce formulaire car
+	l'information est redondante avec les 
+	placeholder des inputs.
 
+	var label = document.createElement("label");
+	label.setAttribute("class","col-sm-2 control-label");
 	label.innerHTML="Url: ";
-			
+	
+	var label2 = document.createElement("label");
+	label2.setAttribute("class","col-sm-2 control-label");
+	label2.innerHTML="Nom: ";
+	*/		
 	var input= document.createElement("input");
 	input.setAttribute("class","form-control");
 	input.setAttribute("name","url");
 	input.setAttribute("placeholder","Url du fichier XML");
+
+	var input2= document.createElement("input");
+	input2.setAttribute("class","form-control");
+	input2.setAttribute("name","nomAbonnement");
+	input2.setAttribute("placeholder","Nom de l'abonnement");
+
 	var btn = document.createElement("input");
 	btn.setAttribute("type","submit");
 	btn.setAttribute("name","ajoutFlux");
@@ -27,8 +41,10 @@ function affiFormAddFlux(){
 	var cible = document.getElementById("option-podcast");
 	cible.appendChild(form); 
 	form.appendChild(div);
-	div.appendChild(label);
+	//div.appendChild(label);
 	div.appendChild(input);
+	//div.appendChild(label2);
+	div.appendChild(input2);
 	div.appendChild(btn);	
 
 	cible = document.getElementById("addFormAjoutFlux");

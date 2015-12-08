@@ -21,8 +21,10 @@ class Podcast {
 	}
 
 
-	public function recuperePodcast($url_flux){
+	public function recuperePodcast($url_flux,$nom_abonnement){
 		if(!empty($url_flux)){
+			//On recupere le nom de l'abonnement
+			$nom_abo = $nom_abonnement;
 			//On recupère le flux RSS
 			$flux = new DomDocument();
 			$flux->load($url_flux);
@@ -39,13 +41,13 @@ class Podcast {
 				$categ=mysql_real_escape_string($pc->getElementsByTagName('category')->item(0)->nodeValue);
 				$url=mysql_real_escape_string($pc->getElementsByTagName('enclosure')->item(0)->getAttribute('url'));
 				
-
+				
 				//Ajout base
 				$sql= "INSERT INTO podcast(titre,auteur,date,description,url,id_genre,comments) VALUES('$titre','$auteur', '$date', '$desc', '$url', '$categ',' rien ')";
 				@mysql_query($sql) or die('Erreur requete SQL'."  ".mysql_error());
 				$id_podcast=mysql_insert_id();
 
-				$sql2= "INSERT INTO abonnement(id_util,id_pod,url) VALUES('1','$id_podcast', '$url_flux')";
+				$sql2= "INSERT INTO abonnement(id_util,id_pod,url,nom_abo) VALUES('1','$id_podcast', '$url_flux', '$nom_abo')";
 				@mysql_query($sql2) or die('Erreur requete SQL'."  ".mysql_error());
 				
 				

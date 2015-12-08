@@ -12,8 +12,12 @@
 	<?php
 
 		try
-		{
+		{	//LocalHost:
+			/*
 			$bdd= new PDO('mysql:host=localhost;dbname=podcast;charset=utf8', 'root', '');
+			*/
+			// http://podcastoi.cyril-minette.net:
+			$bdd= new PDO('mysql:host=db.cyril-minette.net;dbname=podcastoi;charset=utf8', 'podcastoi', 'GaeJxHm4');
 			$connect = false;
 		}
 		catch (Exception $e)
