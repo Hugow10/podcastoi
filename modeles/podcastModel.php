@@ -71,6 +71,16 @@ class Podcast {
 		}
 		return $pc;
 	}
+
+	public function supprimePodcast($id){
+		if(!empty($id)){
+			$sql="DELETE FROM podcast WHERE id_pod='$id'";
+			$sql2="DELETE FROM abonnement WHERE id_pod='$id'";
+			$result=@mysql_query($sql) or die('Erreur requete SQL'."  ".mysql_error());
+			$result2=@mysql_query($sql2) or die('Erreur requete SQL'."  ".mysql_error());
+		}
+	}
+
 	public function getTitre(){
 		return $this->titre;
 	}

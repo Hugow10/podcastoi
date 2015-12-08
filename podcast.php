@@ -51,10 +51,11 @@ if(isset($_GET['podcast'])){
 	<body> 
 			<section>
 			<!-- util ? -->
-			<!-- <div class="divchaine">
+			<div class="divchaine">
 				<p> Nom de la chaine <p>
-				<input type="button" name="subscribe" value="S'abonner" class="btn btn-warning" >
-			</div> -->
+					<!-- util ? -->
+				<!-- <input type="button" name="subscribe" value="S'abonner" class="btn btn-warning" > -->
+			</div>
 
 			
 				<br />
@@ -115,6 +116,7 @@ if(isset($_GET['podcast'])){
 						    <th>Titre</th> 
 						    <th>Date</th>
 						    <th>Séléction</th>
+						    <th>Suppression</th>
 						</tr>
 						<?php
 						
@@ -124,6 +126,7 @@ if(isset($_GET['podcast'])){
 								echo("<td>".$donnees['titre']."</td>");
 								echo("<td>".$donnees['date']."</td>");
 								echo("<td><a href='podcast.php?page=".$pageActuelle."&podcast=".$donnees['id_pod']."'><button class='btn btn-primary'>Séléctionner</button></a></td>");
+								echo("<td><a href='supprimer.php?&pod_supr=".$donnees['id_pod'] ."'><button class='btn btn-default' > <span class='glyphicon glyphicon-remove' aria-hidden='true'></span></button></a></td>");
 								echo("</tr>");
 							}
 						}

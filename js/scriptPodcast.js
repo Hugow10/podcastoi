@@ -64,3 +64,8 @@ function supprFormAddFlux(){
 
 
 }
+
+function confirmationSuppr(id){
+	var choix=confirm("Etes-vous sur de vouloir supprimer ce podcast "+id);
+
+}
