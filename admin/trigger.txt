@@ -1,0 +1,13 @@
+CREATE TRIGGER netoyage_base after UPDATE
+ON Podcast FOR EACH ROW
+BEGIN
+	DECLARE ID INT DEFAULT 0;
+	
+	SELECT id_pod INTO ID
+	FROM Abonnement
+	WHERE id_pod NOT IN(
+						SELECT id_pod
+						FROM Abonnement
+						)
+	DELET FROM Podcast WHERE id_pod= ID
+END 

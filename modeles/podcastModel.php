@@ -22,7 +22,7 @@ class Podcast {
 
 
 	public function recuperePodcast($url_flux,$nom_abonnement){
-		if(!empty($url_flux)){
+		if( (!empty($url_flux)) && (!empty($nom_abonnement)) ) {
 			//On recupere le nom de l'abonnement
 			$nom_abo = $nom_abonnement;
 			//On recupère le flux RSS
@@ -70,6 +70,20 @@ class Podcast {
 			}
 		}
 		return $pc;
+	}
+
+
+	public function getByIdToJson($id){
+		if(!empty($id)){
+
+			$sql= "SELECT * FROM podcast WHERE id_pod='$id'";
+			$result=@mysql_query($sql) or die('Erreur requete SQL'."  ".mysql_error());
+			$pc;
+			while($ligne= mysql_fetch_row($result)){
+				$pc=array("id"=>$ligne[0],"titre"=>$ligne[1],"date"=>$ligne[3],"description"=>$ligne[4],"auteur"=>$ligne[2],"url"=>$ligne[5]);
+			}
+		}
+		return json_encode($pc);
 	}
 
 	public function supprimePodcast($id){

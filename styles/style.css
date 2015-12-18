@@ -90,22 +90,23 @@ a:hover{
 /*Style du header de l'accueil */
 .headeracc{
 	text-align: center;
-	border: 1px solid #f4a62a;
+	border: 15px solid #f4a62a;
 	border-radius: 10px;
-	margin: 5px;
-	background-color: #f4a62a;
+	background-color: white;
+	width:100%;
 }
 
 /* Style du aside */
 aside{
 	display: inline-block;
 	float: left;
-	margin-top: 0px;
 	background-color: white;
-	max-height: 100%;
-	max-width:22%;
+	height: 100%;
 	border-right: 1px solid #f4a62a;
-	overflow: scroll;
+	position: fixed;
+	max-width: 22%;
+	
+
 }
 
 
@@ -153,12 +154,14 @@ form{
 /* Style du header */
 header{
 	margin: 0;
+	margin-left: 22%;
 	width: 100%;
 	height: 10%;
 	display: inline-block;
-	float: left;
 	background-color: white;
 	border-bottom: 1px solid #f4a62a;
+	float:left;
+	position:fixed;
 }
 
 /* Image du header */
@@ -190,8 +193,10 @@ body{
 } 
 
 section{
+	margin-top: 10%;
 	margin-left: 22%;
 	padding-left: 2%;
+	overflow: scroll;
 }
 
 .divchaine{
